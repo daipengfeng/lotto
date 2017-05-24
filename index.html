@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<style type="text/css">
+		div{
+			width: 50px;
+			height: 50px;
+			border-radius:25px;
+			float: left;
+			margin-right: 10px;
+			text-align: center;
+			line-height: 50px;
+			color: white;
+			font-size: 25px;
+		}
+		.red{
+			background: red;
+		}
+		.blue{
+			background: blue;
+		}
+		p{
+			clear:both;
+			margin: 15px 0;
+			float: left;
+		}
+	</style>
+	<body>
+		<div class="red"></div>
+		<div class="red"></div>
+		<div class="red"></div>
+		<div class="red"></div>
+		<div class="red"></div>
+		<div class="red"></div>
+		<div class="blue"></div>
+		<p>
+		<button>开奖</button>
+		</p>
+	</body>
+	<script type="text/javascript">
+		var btn=document.querySelector("button");
+		var balls=document.querySelectorAll("div");
+		
+		btn.addEventListener("click",start);
+		
+		function start(e){
+			var result=[];
+			while(result.length<7){
+				//生成随机数
+				var tempNum=0;
+				if(result.length==6){
+					tempNum=Math.ceil(Math.random()*16);
+				}
+				else{
+					tempNum=Math.ceil(Math.random()*33);
+				}
+				//如果生成的随机数与现有数组中的数字不重复，则加入数组
+				if(result.indexOf(tempNum)==-1){
+					result.push(tempNum);
+				}
+			}
+			//生成的随机数值填入球中。
+			for(var i=0;i<result.length;i++){
+				//balls[i].innerHTML=result[i];
+				setTimeout(randomNum,50,0,balls[i],result[i]);
+//				balls[i].innerHTML=result[i];
+			}
+		}
+			//每50秒改一个数字
+			function randomNum(count,element,resultNum){
+				if(count>=40){
+					element.innerHTML=resultNum;
+					return;
+				}
+				var r=Math.ceil(Math.random()*33);
+				element.innerHTML=r;
+				setTimeout(randomNum,50,count+1,element,resultNum);
+			}
+	</script>
+</html>
